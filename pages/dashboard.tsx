@@ -23,6 +23,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Add as AddIcon, Description as DocumentIcon } from '@mui/icons-material';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface KnowledgeBase {
   id: string;
@@ -88,6 +89,7 @@ export default function Dashboard() {
           <Typography variant="body2" sx={{ mr: 2 }}>
             {user?.email}
           </Typography>
+          <ThemeToggle />
           <Button color="inherit" onClick={logout}>
             Logout
           </Button>

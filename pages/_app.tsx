@@ -3,13 +3,16 @@ import type { AppProps } from "next/app";
 import { withFronteggApp } from "@frontegg/nextjs/pages";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+import { CustomThemeProvider } from '@/lib/theme-context';
 
 function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+      <CustomThemeProvider>
+        <Component {...pageProps} />
+      </CustomThemeProvider>
     </QueryClientProvider>
   );
 }

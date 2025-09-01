@@ -29,12 +29,13 @@ import {
 } from '@mui/material';
 import {
   ArrowBack as ArrowBackIcon,
-  Upload as UploadIcon,
   Description as DocumentIcon,
   MoreVert as MoreVertIcon,
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@mui/icons-material';
+import ThemeToggle from '@/components/ThemeToggle';
+import DocumentUpload from '@/components/DocumentUpload';
 
 interface KnowledgeBase {
   id: string;
@@ -158,6 +159,7 @@ export default function KnowledgeBaseDetail() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {knowledgeBase.name}
           </Typography>
+          <ThemeToggle />
           <IconButton
             color="inherit"
             onClick={(e) => setMenuAnchorEl(e.currentTarget)}
@@ -205,38 +207,20 @@ export default function KnowledgeBaseDetail() {
           <Typography variant="h5" component="h2">
             Documents
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<UploadIcon />}
-            onClick={() => {
-              alert('Document upload will be implemented in Phase 2!');
-            }}
-          >
-            Upload Document
-          </Button>
         </Box>
 
+        <DocumentUpload knowledgeBaseId={knowledgeBase.id} />
+
         {knowledgeBase.documents.length === 0 ? (
-          <Card sx={{ textAlign: 'center', py: 8 }}>
-            <CardContent>
-              <DocumentIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />
-              <Typography variant="h6" color="text.secondary" gutterBottom>
-                No documents yet
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                Upload your first document to start building your knowledge base
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={<UploadIcon />}
-                onClick={() => {
-                  alert('Document upload will be implemented in Phase 2!');
-                }}
-              >
-                Upload Document
-              </Button>
-            </CardContent>
-          </Card>
+          <Box sx={{ textAlign: 'center', py: 4 }}>
+            <DocumentIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              No documents yet
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              Upload your first document using the form above
+            </Typography>
+          </Box>
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {knowledgeBase.documents.map((doc) => (
