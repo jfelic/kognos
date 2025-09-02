@@ -126,12 +126,25 @@ export default function KnowledgeBaseDetail() {
     setDeleteDialogOpen(false);
   };
 
-  const handleDeleteDocument = async (documentId: string) => {
-    await fetch('/api/documents/delete', {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ documentId: documentId })
+  const deleteDocumentMutation = useMutation({
+    mutationFn: async (documentId: string) => {
+      const response = await fetch('/api/documents/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ documentId })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete document');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['knowledge-base', id] });
+    }
   });
+
+  const handleDeleteDocument = async (documentId: string) => {
+    deleteDocumentMutation.mutate(documentId);
   }
 
   if (isLoading) {
