@@ -126,6 +126,14 @@ export default function KnowledgeBaseDetail() {
     setDeleteDialogOpen(false);
   };
 
+  const handleDeleteDocument = async (documentId: string) => {
+    await fetch('/api/documents/delete', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ documentId: documentId })
+  });
+  }
+
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
@@ -222,7 +230,7 @@ export default function KnowledgeBaseDetail() {
             </Typography>
           </Box>
         ) : (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
             {knowledgeBase.documents.map((doc) => (
               <Card key={doc.id}>
                 <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -234,8 +242,15 @@ export default function KnowledgeBaseDetail() {
                         {doc.fileSize ? `${Math.round(doc.fileSize / 1024)} KB • ` : ''}
                         Uploaded {new Date(doc.createdAt).toLocaleDateString()}
                       </Typography>
+
+                      
                     </Box>
                   </Box>
+
+                  {/* TODO: Add button to delete a specific document */}
+                  <IconButton color='error' onClick={ () => handleDeleteDocument(doc.id)}>
+                    <DeleteIcon />
+                  </IconButton>
                 </CardContent>
               </Card>
             ))}

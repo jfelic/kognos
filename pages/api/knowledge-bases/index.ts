@@ -1,3 +1,9 @@
+/* 
+Operations on the collection of knowledge bases
+- GET: List all knowledge bases for the authenticated user
+- POST: Create a new knowledge base
+*/
+
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from '@frontegg/nextjs/pages';
 import { prisma } from '@/lib/prisma';

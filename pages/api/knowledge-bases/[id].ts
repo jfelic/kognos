@@ -1,3 +1,10 @@
+/*
+Operations on a single knowledge base
+- GET: get details of one specific konwledge base (including it's docs)
+- PUT: Update a knowledge base (name, desc)
+- DELETE: Delete a certain knowledge base entirely
+*/ 
+
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from '@frontegg/nextjs/pages';
 import { prisma } from '@/lib/prisma';
